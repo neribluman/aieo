@@ -5,7 +5,6 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
-import AutoScroll from 'embla-carousel-auto-scroll'
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -20,37 +19,6 @@ interface CarouselProps {
   plugins?: CarouselPlugin
   orientation?: "horizontal" | "vertical"
   setApi?: (api: CarouselApi) => void
-}
-
-export function MobileCarousel({ children }: { children: React.ReactNode }) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ 
-    loop: true,
-    align: 'start',
-    skipSnaps: false,
-    dragFree: true
-  }, [
-    AutoScroll({ 
-      playOnInit: true,
-      stopOnInteraction: false,
-      speed: 0.5 // Slower speed for better mobile performance
-    })
-  ])
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev()
-  }, [emblaApi])
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext()
-  }, [emblaApi])
-
-  return (
-    <div className="overflow-hidden" ref={emblaRef}>
-      <div className="flex">
-        {children}
-      </div>
-    </div>
-  )
 }
 
 const Carousel = React.forwardRef<
@@ -122,10 +90,6 @@ const CarouselItem = React.forwardRef<
     aria-roledescription="slide"
     className={cn(
       "min-w-0 shrink-0 grow-0 basis-full",
-      "flex items-center justify-center h-[60px] px-2",
-      "md:basis-1/2 md:h-auto md:px-4 md:py-2",
-      "whitespace-nowrap overflow-hidden text-ellipsis md:whitespace-normal",
-      "text-sm md:text-base",
       className
     )}
     {...props}

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { SarcasticCarousel } from "./landing-page/components/SarcasticCarousel";
 import * as Dialog from '@radix-ui/react-dialog';
+import Image from 'next/image';
 
 export default function LandingPage() {
   const [url, setUrl] = useState('');
@@ -80,47 +81,21 @@ export default function LandingPage() {
 
       <div className="relative z-10 h-screen flex flex-col">
         {/* Hero Section */}
-        <div className="flex-1 flex items-center justify-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center space-y-12 w-full"
-          >
-            <motion.div 
-              className="space-y-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-geist-sans font-light tracking-tight text-gray-900">
-                AI has formed
-                <motion.span 
-                  className="block mt-2 font-normal bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.8 }}
-                >
-                  an opinion about your product
-                </motion.span>
-              </h1>
-              
-              <motion.p 
-                className="text-xl md:text-2xl text-gray-500 font-light mt-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-              >
-                Would you like to know what it is?
-              </motion.p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="w-full max-w-2xl mx-auto group"
-            >
+        <div className="w-full px-4 md:px-6">
+          {/* Hero section */}
+          <div className="flex flex-col items-center text-center">
+            <h1 className="text-3xl md:text-5xl font-bold mb-4">
+              AI has formed
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                {' '}an opinion about your product
+              </span>
+            </h1>
+            <p className="text-xl text-gray-600 mb-8">
+              Would you like to know what it is?
+            </p>
+            
+            {/* URL Input section */}
+            <div className="w-full max-w-md mb-12">
               <div className="relative">
                 <motion.div 
                   className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 
@@ -135,7 +110,7 @@ export default function LandingPage() {
                 <div className="relative flex items-center">
                   <Input
                     placeholder="Enter your product URL"
-                    className="w-full px-8 py-8 text-base sm:text-xl bg-white/50 border-gray-200 rounded-xl
+                    className="w-full px-8 py-8 text-xl bg-white/50 border-gray-200 rounded-xl
                              focus:ring-2 focus:ring-blue-500/20 transition-all duration-300
                              hover:bg-white/80 backdrop-blur-sm"
                     value={url}
@@ -168,8 +143,27 @@ export default function LandingPage() {
                   </motion.button>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+            
+            {/* Companies section - fixed mobile layout */}
+            <div className="w-full text-center mb-8">
+              <p className="text-gray-600 text-sm md:text-base whitespace-normal px-4">
+                Companies that haven't discovered what AI thinks about them yet
+              </p>
+              
+              {/* Logo carousel/grid */}
+              <div className="mt-8 flex flex-wrap justify-center gap-8">
+                <Image
+                  src="/hubspot-logo.png"
+                  alt="HubSpot"
+                  width={120}
+                  height={40}
+                  className="opacity-50"
+                />
+                {/* Other logos... */}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Carousel Section */}

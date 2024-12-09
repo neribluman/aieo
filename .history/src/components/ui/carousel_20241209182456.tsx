@@ -121,11 +121,10 @@ const CarouselItem = React.forwardRef<
     role="group"
     aria-roledescription="slide"
     className={cn(
-      "min-w-0 shrink-0 grow-0 basis-full",
-      "flex items-center justify-center h-[60px] px-2",
-      "md:basis-1/2 md:h-auto md:px-4 md:py-2",
-      "whitespace-nowrap overflow-hidden text-ellipsis md:whitespace-normal",
-      "text-sm md:text-base",
+      "min-w-0 shrink-0 grow-0 basis-full md:basis-1/2",
+      "px-4 py-2 md:p-4",
+      "text-center break-words",
+      "flex flex-col justify-center items-center min-h-[100px]",
       className
     )}
     {...props}

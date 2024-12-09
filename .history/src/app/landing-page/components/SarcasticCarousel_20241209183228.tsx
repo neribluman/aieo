@@ -104,17 +104,16 @@ export function SarcasticCarousel() {
           <div className="hidden md:flex items-center justify-center gap-2">
             <span>Those are companies who{" "}</span>
             <span className="font-medium text-gray-600">don't know</span>
-            <span>{" "}what AI thinks about them{" "}</span>
-            <span aria-hidden="true">🤫</span>
+            <span>{" "}what AI thinks about them</span>
           </div>
           
           {/* Mobile version - full sentence with proper wrapping */}
-          <div className="md:hidden px-4 mx-auto max-w-[280px] leading-relaxed inline-flex flex-wrap justify-center items-center gap-1">
+          <div className="md:hidden px-4 mx-auto max-w-[280px] leading-relaxed">
             <span>Those are companies who </span>
             <span className="font-medium text-gray-600">don't know </span>
-            <span>what AI thinks about them </span>
-            <span aria-hidden="true">🤫</span>
+            <span>what AI thinks about them</span>
           </div>
+          <span className="ml-2 inline-block" aria-hidden="true">🤫</span>
         </h2>
       </motion.div>
 

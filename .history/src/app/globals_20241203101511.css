@@ -252,32 +252,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-/* Mobile optimizations */
-@media (max-width: 768px) {
-  .mobile-optimize * {
-    transition: none !important;
-    animation: none !important;
-  }
-  
-  /* Improve text readability on mobile */
-  .embla__slide {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 60px;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    padding: 0 0.5rem;
-    font-size: 14px;
-  }
-  
-  /* Remove previous text wrapping styles */
-  .embla__slide > * {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-  }
-}

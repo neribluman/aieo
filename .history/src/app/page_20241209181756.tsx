@@ -135,7 +135,7 @@ export default function LandingPage() {
                 <div className="relative flex items-center">
                   <Input
                     placeholder="Enter your product URL"
-                    className="w-full px-8 py-8 text-base sm:text-xl bg-white/50 border-gray-200 rounded-xl
+                    className="w-full px-8 py-8 text-xl bg-white/50 border-gray-200 rounded-xl
                              focus:ring-2 focus:ring-blue-500/20 transition-all duration-300
                              hover:bg-white/80 backdrop-blur-sm"
                     value={url}

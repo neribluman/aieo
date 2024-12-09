@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --secondary: #64748b;
+  --accent: #8b5cf6;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --card-bg: rgba(255, 255, 255, 0.9);
+  
+  /* Tremor root variables */
+  --tremor-brand: #3b82f6;
+  --tremor-brand-muted: #60a5fa;
+  --tremor-brand-emphasis: #1d4ed8;
+  --tremor-brand-inverted: #ffffff;
+  --tremor-brand-background: #ffffff;
+  --tremor-background-muted: #f9fafb;
+  --tremor-background-subtle: #f3f4f6;
+  --tremor-background-emphasis: #374151;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --foreground: #f8fafc;
+    --card-bg: rgba(30, 41, 59, 0.9);
+    
+    /* Tremor dark mode variables */
+    --tremor-brand: #60a5fa;
+    --tremor-brand-muted: #3b82f6;
+    --tremor-brand-emphasis: #93c5fd;
+    --tremor-brand-inverted: #030712;
+    --tremor-brand-background: #111827;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+}
+
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+.chart-container {
+  @apply rounded-xl p-6 glass-card;
+  --chart-color-1: #6366F1;
+  --chart-color-2: #10B981;
+  --chart-color-3: #F59E0B;
+}
+
+.metric-card {
+  @apply rounded-xl p-6 glass-card transition-all duration-300 hover:scale-[1.02];
+}
+
+.glow {
+  position: relative;
+}
+
+.glow::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  filter: blur(15px);
+  z-index: -1;
+  opacity: 0.5;
+}
+
+/* Tremor specific overrides */
+.tremor-Card-root {
+  background-color: var(--card-bg) !important;
+  backdrop-filter: blur(12px);
+}
+
+.tremor-AreaChart-root {
+  --tremor-chart-color-1: var(--chart-color-1);
+  --tremor-chart-color-2: var(--chart-color-2);
+  --tremor-chart-color-3: var(--chart-color-3);
+}

@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add Tremor base styles */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+
+  --tremor-brand: 214.3 100% 48.2%;
+  --tremor-brand-muted: 214.3 100% 98%;
+  --tremor-brand-faint: 214.3 100% 91.4%;
+  --tremor-brand-inverted: 0 0% 100%;
+
+  --tremor-background: 0 0% 100%;
+  --tremor-background-muted: 210 40% 98%;
+  --tremor-background-subtle: 210 40% 96.1%;
+  --tremor-background-emphasis: 210 40% 14.9%;
+
+  --tremor-border: 214.3 32% 91%;
+  --tremor-ring: 214.3 32% 91%;
+
+  --tremor-content: 215.4 16.3% 46.9%;
+  --tremor-content-subtle: 215.4 16.3% 56.9%;
+  --tremor-content-emphasis: 215.4 16.3% 36.9%;
+  --tremor-content-strong: 215.4 16.3% 26.9%;
+  --tremor-content-inverted: 0 0% 100%;
+}
+
+[data-theme='dark'] {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+
+  --tremor-brand: 214.3 100% 48.2%;
+  --tremor-brand-muted: 214.3 100% 2%;
+  --tremor-brand-faint: 214.3 100% 8.6%;
+  --tremor-brand-inverted: 222.2 84% 4.9%;
+
+  --tremor-background: 222.2 84% 4.9%;
+  --tremor-background-muted: 210 40% 2%;
+  --tremor-background-subtle: 210 40% 3.9%;
+  --tremor-background-emphasis: 210 40% 85.1%;
+
+  --tremor-border: 217.2 32.6% 17.5%;
+  --tremor-ring: 217.2 32.6% 17.5%;
+
+  --tremor-content: 215.4 16.3% 56.9%;
+  --tremor-content-subtle: 215.4 16.3% 46.9%;
+  --tremor-content-emphasis: 215.4 16.3% 66.9%;
+  --tremor-content-strong: 215.4 16.3% 76.9%;
+  --tremor-content-inverted: 222.2 84% 4.9%;
+}
+
+/* Add any other global styles below */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}

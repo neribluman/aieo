@@ -1,7 +1,15 @@
 {
+<<<<<<< HEAD
   "extends": "next/core-web-vitals",
+=======
+  "extends": ["next/core-web-vitals", "next/typescript"],
+>>>>>>> 5b330cb2faa91f2e16c2bb0a9db1273cc37bcc17
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
     "react/no-unescaped-entities": "off"
   }
+<<<<<<< HEAD
 } 
+=======
+}
+>>>>>>> 5b330cb2faa91f2e16c2bb0a9db1273cc37bcc17

@@ -56,14 +56,14 @@ export default function LandingPage() {
   };
 
   return (
-    <main className="h-screen relative overflow-hidden bg-gradient-to-b from-white via-purple-50 to-white">
+    <main className="h-screen relative overflow-hidden bg-gradient-to-b from-white via-blue-50 to-white">
       {/* Grid background */}
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
       
       {/* Floating gradient orbs */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute w-[600px] h-[600px] rounded-full bg-gradient-radial from-purple-400/10 to-transparent blur-3xl"
+          className="absolute w-[600px] h-[600px] rounded-full bg-gradient-radial from-blue-400/10 to-transparent blur-3xl"
           animate={{
             x: ['-10%', '10%'],
             y: ['-10%', '10%'],
@@ -96,7 +96,7 @@ export default function LandingPage() {
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-geist-sans font-light tracking-tight text-gray-900">
                 AI has formed
                 <motion.span 
-                  className="block mt-2 font-normal bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text"
+                  className="block mt-2 font-normal bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.8 }}
@@ -123,7 +123,7 @@ export default function LandingPage() {
             >
               <div className="relative">
                 <motion.div 
-                  className="absolute -inset-1 bg-gradient-to-r from-[#2E0854] to-[#9400D3] rounded-2xl opacity-0 
+                  className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl opacity-0 
                             group-hover:opacity-5 blur-xl transition-all duration-700"
                   animate={{
                     scale: isInputFocused ? 1.02 : 1,
@@ -136,7 +136,7 @@ export default function LandingPage() {
                   <Input
                     placeholder="Enter your product URL"
                     className="w-full px-8 py-8 text-base sm:text-xl bg-white/50 border-gray-200 rounded-xl
-                             focus:ring-2 focus:ring-[#2E0854]/20 transition-all duration-300
+                             focus:ring-2 focus:ring-blue-500/20 transition-all duration-300
                              hover:bg-white/80 backdrop-blur-sm"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
@@ -149,9 +149,9 @@ export default function LandingPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="absolute right-3 flex items-center justify-center px-6 py-3 
-                             bg-gradient-to-r from-[#2E0854] to-[#9400D3] rounded-lg text-white
-                             hover:from-[#3A0A6B] hover:to-[#A020F0] transition-all duration-300
-                             shadow-lg shadow-[#2E0854]/20 hover:shadow-[#2E0854]/30
+                             bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white
+                             hover:from-blue-500 hover:to-purple-500 transition-all duration-300
+                             shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30
                              disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isAnalyzing ? (
@@ -209,8 +209,8 @@ export default function LandingPage() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full px-4 py-3 bg-gradient-to-r from-[#2E0854] to-[#9400D3] 
-                               text-white rounded-lg hover:from-[#3A0A6B] hover:to-[#A020F0] 
+                      className="w-full px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 
+                               text-white rounded-lg hover:from-blue-500 hover:to-purple-500 
                                transition-all duration-300 disabled:opacity-50"
                     >
                       {isSubmitting ? (

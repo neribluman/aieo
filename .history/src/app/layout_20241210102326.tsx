@@ -29,10 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="icon" type="image/png" sizes="32x32" href="/Favicon(32x32).png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/logo(192x192).png" />
-        <link rel="icon" type="image/png" sizes="512x512" href="/logo(512x512).png" />
-        <link rel="apple-touch-icon" href="/logo(192x192).png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/logo-180x40.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/logo-180x40.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/logo-180x40.png" />
+        <link rel="apple-touch-icon" href="/logo-180x40.png" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}>
         <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
@@ -45,13 +45,22 @@ export default function RootLayout({
                     className="flex items-center transition-all duration-300"
                   >
                     <Image
-                      src="/logo(320x80)2.png"
+                      src="/logo-180x40.png"
                       alt="AIEO Logo"
-                      width={320}
-                      height={80}
+                      width={180}
+                      height={40}
                       priority
-                      className="h-8 w-auto"
                     />
+                  </Link>
+                </div>
+                <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                  <Link
+                    href="/"
+                    className="inline-flex items-center px-1 pt-1 text-gray-600 
+                             hover:text-blue-600 transition-colors duration-300
+                             border-b-2 border-transparent hover:border-blue-600"
+                  >
+                    Home
                   </Link>
                 </div>
               </div>

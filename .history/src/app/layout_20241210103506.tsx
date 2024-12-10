@@ -54,6 +54,16 @@ export default function RootLayout({
                     />
                   </Link>
                 </div>
+                <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                  <Link
+                    href="/"
+                    className="inline-flex items-center px-1 pt-1 text-gray-600 
+                             hover:text-blue-600 transition-colors duration-300
+                             border-b-2 border-transparent hover:border-blue-600"
+                  >
+                    Home
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

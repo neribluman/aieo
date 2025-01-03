@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
 
 export function Section3() {
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -42,11 +43,15 @@ export function Section3() {
             <div className="relative w-full flex items-center justify-center p-4">
               <div className="w-full bg-white rounded-xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 overflow-hidden">
                 <div className="relative w-full h-full p-6 flex items-center justify-center">
-                  <img
-                    src="/images/product(2)2.svg"
-                    alt="Buying journey analysis"
-                    className="w-full h-full rounded-xl"
-                  />
+                  <div className="relative w-full h-[600px]">
+                    <Image
+                      src="/images/Product(2)2.svg"
+                      alt="Buying journey analysis"
+                      fill
+                      className="object-contain rounded-xl"
+                      priority
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
                 </div>
               </div>

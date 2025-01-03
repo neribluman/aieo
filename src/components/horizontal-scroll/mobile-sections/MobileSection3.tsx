@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const stages = [
   {
@@ -88,11 +89,15 @@ export function MobileSection3() {
         >
           <div className="relative w-full bg-white rounded-xl shadow-2xl overflow-hidden">
             <div className="relative w-full p-4">
-              <img
-                src="/images/product(2)2.svg"
-                alt="Buying journey analysis"
-                className="w-full rounded-lg"
-              />
+              <div className="relative w-full h-[400px]">
+                <Image
+                  src="/images/Product(2)2.svg"
+                  alt="Buying journey analysis"
+                  fill
+                  className="object-contain rounded-lg"
+                  priority
+                />
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
             </div>
           </div>

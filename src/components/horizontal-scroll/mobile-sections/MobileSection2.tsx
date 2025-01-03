@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const metrics = [
   { label: "AI Engine Mentions" },
@@ -68,13 +69,17 @@ export function MobileSection2() {
           <div className="relative w-full bg-white/90 rounded-xl shadow-2xl overflow-hidden border border-purple-100/20">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 to-white/50" />
             <div className="relative w-full p-4">
-              <img
-                src="/images/product(1)2.svg"
-                alt="Product tracking dashboard"
-                className="w-full rounded-lg shadow-lg"
-              />
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
+              <div className="relative w-full h-full p-6 flex items-center justify-center">
+                <Image
+                  src="/images/Product(1)2.svg"
+                  alt="Product tracking dashboard"
+                  fill
+                  className="object-contain rounded-xl shadow-lg p-4"
+                  priority
+                />
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
+              </div>
             </div>
           </div>
         </motion.div>

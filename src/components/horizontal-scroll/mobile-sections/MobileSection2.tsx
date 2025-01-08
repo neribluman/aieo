@@ -66,20 +66,18 @@ export function MobileSection2() {
           transition={{ delay: 0.2 }}
           className="mt-12 relative"
         >
-          <div className="relative w-full bg-white/90 rounded-xl shadow-2xl overflow-hidden border border-purple-100/20">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 to-white/50" />
+          <div className="relative w-full bg-white rounded-xl shadow-2xl overflow-hidden">
             <div className="relative w-full p-4">
-              <div className="relative w-full h-full p-6 flex items-center justify-center">
+              <div className="relative w-full h-[400px]">
                 <Image
                   src="/images/Product(1)2.svg"
                   alt="Product tracking dashboard"
                   fill
-                  className="object-contain rounded-xl shadow-lg p-4"
+                  className="object-contain rounded-lg"
                   priority
                 />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
               </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
             </div>
           </div>
         </motion.div>

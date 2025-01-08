@@ -101,8 +101,8 @@ export default function LandingPage() {
         {/* Grid background */}
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
         
-        {/* Floating gradient orbs */}
-        <div className="absolute inset-0 overflow-hidden">
+        {/* Floating gradient orbs - Only show on desktop */}
+        <div className="absolute inset-0 overflow-hidden hidden md:block">
           <motion.div
             className="absolute w-[600px] h-[600px] rounded-full bg-gradient-radial from-purple-400/10 to-transparent blur-3xl"
             animate={{
@@ -125,22 +125,20 @@ export default function LandingPage() {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.5 }}
               className="text-center space-y-4 w-full -mt-32"
             >
               <motion.div 
                 className="space-y-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
+                transition={{ duration: 0.5 }}
               >
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-geist-sans font-light tracking-tight text-gray-900 leading-[1.1]">
                   Improve conversion on
+                  {/* Desktop version with full animations */}
                   <motion.span 
-                    className="block mt-2 mb-2 font-normal bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text leading-[1.1] py-1 relative"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.8 }}
+                    className="hidden md:block mt-2 mb-2 font-normal bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text leading-[1.1] py-1 relative"
                   >
                     <motion.span
                       className="inline-block relative"
@@ -230,13 +228,23 @@ export default function LandingPage() {
                       </span>
                     </motion.span>
                   </motion.span>
+
+                  {/* Simplified mobile version */}
+                  <motion.span 
+                    className="block md:hidden mt-2 mb-2 font-normal bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text leading-[1.1] py-1"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    AI Search Engines
+                  </motion.span>
                 </h1>
                 
                 <motion.p 
                   className="text-xl md:text-2xl text-gray-500 font-light mt-2"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.6, duration: 0.8 }}
+                  transition={{ duration: 0.3 }}
                 >
                   Before your competitors do
                 </motion.p>
@@ -244,13 +252,14 @@ export default function LandingPage() {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8, duration: 0.8 }}
+                  transition={{ duration: 0.3 }}
                   className="w-full max-w-2xl mx-auto group mt-8"
                 >
                   <div className="relative">
+                    {/* Desktop hover effect */}
                     <motion.div 
                       className="absolute -inset-1 bg-gradient-to-r from-[#2E0854] to-[#9400D3] rounded-2xl opacity-0 
-                                group-hover:opacity-5 blur-xl transition-all duration-700"
+                                group-hover:opacity-5 blur-xl transition-all duration-700 hidden md:block"
                       animate={{
                         scale: isInputFocused ? 1.02 : 1,
                         opacity: isInputFocused ? 0.1 : 0,
@@ -263,22 +272,20 @@ export default function LandingPage() {
                         placeholder={placeholder}
                         className="w-full px-8 py-8 text-base sm:text-xl bg-white/50 border-gray-200 rounded-xl
                                  focus:ring-2 focus:ring-[#2E0854]/20 transition-all duration-300
-                                 hover:bg-white/80 backdrop-blur-sm"
+                                 hover:bg-white/80 backdrop-blur-sm md:backdrop-blur-sm"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         onFocus={() => setIsInputFocused(true)}
                         onBlur={() => setIsInputFocused(false)}
                       />
-                      <motion.button
+                      <button
                         onClick={handleReveal}
                         disabled={isAnalyzing}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
                         className="absolute right-3 flex items-center justify-center px-6 py-3 
                                  bg-gradient-to-r from-[#2E0854] to-[#9400D3] rounded-lg text-white
                                  hover:from-[#3A0A6B] hover:to-[#A020F0] transition-all duration-300
                                  shadow-lg shadow-[#2E0854]/20 hover:shadow-[#2E0854]/30
-                                 disabled:opacity-50 disabled:cursor-not-allowed"
+                                 disabled:opacity-50 disabled:cursor-not-allowed md:motion-safe:hover:scale-102"
                       >
                         {isAnalyzing ? (
                           <>
@@ -291,7 +298,7 @@ export default function LandingPage() {
                             <ArrowRight className="h-4 w-4" />
                           </>
                         )}
-                      </motion.button>
+                      </button>
                     </div>
                     <p className="text-sm text-gray-500 mt-2 text-center">
                       Get your first AI search engine analysis completely free

@@ -1,6 +1,6 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { SarcasticCarousel } from "./landing-page/components/SarcasticCarousel";
@@ -18,6 +18,137 @@ import { MobileSection3 } from "@/components/horizontal-scroll/mobile-sections/M
 import { MobileSection4 } from "@/components/horizontal-scroll/mobile-sections/MobileSection4";
 import { MobileSection5 } from "@/components/horizontal-scroll/mobile-sections/MobileSection5";
 
+function useDelayedCounter(
+  end: number,
+  duration: number = 2000,
+  start: number = 0,
+  delay: number = 0
+) {
+  const [count, setCount] = useState(end);
+  const countRef = useRef(end);
+  const startTimeRef = useRef<number | null>(null);
+  const hasStarted = useRef(false);
+  const isReady = useRef(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      isReady.current = true;
+      if (!hasStarted.current) {
+        hasStarted.current = true;
+        requestAnimationFrame(animate);
+      }
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  const animate = (timestamp: number) => {
+    if (!isReady.current) return;
+    
+    if (!startTimeRef.current) {
+      startTimeRef.current = timestamp;
+      setCount(start);
+      countRef.current = start;
+    }
+    const progress = timestamp - startTimeRef.current;
+    const percentage = Math.min(progress / duration, 1);
+    
+    const currentCount = Math.floor(start + (end - start) * percentage);
+    
+    if (currentCount !== countRef.current) {
+      countRef.current = currentCount;
+      setCount(currentCount);
+    }
+
+    if (percentage < 1) {
+      requestAnimationFrame(animate);
+    }
+  };
+
+  return count;
+}
+
+function useDelayedCombinedCounter(
+  end: number,
+  initialDuration: number = 2000,
+  incrementInterval: number = 1000,
+  minIncrement: number = 1,
+  maxIncrement: number = 5,
+  delay: number = 0
+) {
+  const [count, setCount] = useState(end);
+  const countRef = useRef(end);
+  const startTimeRef = useRef<number | null>(null);
+  const hasReachedInitial = useRef(false);
+  const hasStarted = useRef(false);
+  const isReady = useRef(false);
+  const prevTimeRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      isReady.current = true;
+      if (!hasStarted.current) {
+        hasStarted.current = true;
+        requestAnimationFrame(animate);
+      }
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  const animate = (timestamp: number) => {
+    if (!isReady.current) return;
+    
+    if (!startTimeRef.current) {
+      startTimeRef.current = timestamp;
+      setCount(0);
+      countRef.current = 0;
+    }
+    const progress = timestamp - startTimeRef.current;
+    const percentage = Math.min(progress / initialDuration, 1);
+    
+    const currentCount = Math.floor(end * percentage);
+    
+    if (currentCount !== countRef.current) {
+      countRef.current = currentCount;
+      setCount(currentCount);
+    }
+
+    if (percentage < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      hasReachedInitial.current = true;
+      prevTimeRef.current = performance.now();
+    }
+  };
+
+  useEffect(() => {
+    if (!hasReachedInitial.current || !isReady.current) return;
+
+    const animateIncrement = (timestamp: number) => {
+      if (!prevTimeRef.current) {
+        prevTimeRef.current = timestamp;
+        return requestAnimationFrame(animateIncrement);
+      }
+
+      const deltaTime = timestamp - prevTimeRef.current;
+      
+      if (deltaTime >= incrementInterval) {
+        const randomIncrement = Math.floor(Math.random() * (maxIncrement - minIncrement + 1)) + minIncrement;
+        setCount(prev => prev + randomIncrement);
+        prevTimeRef.current = timestamp;
+      }
+
+      requestAnimationFrame(animateIncrement);
+    };
+
+    const animationFrame = requestAnimationFrame(animateIncrement);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [incrementInterval, minIncrement, maxIncrement, hasReachedInitial.current]);
+
+  return count;
+}
+
 export default function LandingPage() {
   const [url, setUrl] = useState('');
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -27,6 +158,12 @@ export default function LandingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [placeholder, setPlaceholder] = useState('Enter your company or product name');
+  const statsRef = useRef(null);
+  const isStatsInView = useInView(statsRef, { once: true });
+  
+  const companiesCount = useDelayedCounter(266, 3500, 0, isStatsInView ? 0 : 999999);
+  const responsesCount = useDelayedCombinedCounter(500498, 3000, 3000, 1, 4, isStatsInView ? 0 : 999999);
+  const citationsCount = useDelayedCombinedCounter(2104028, 2500, 1600, 1, 6, isStatsInView ? 0 : 999999);
 
   useEffect(() => {
     const handleShowEmailModal = (event: CustomEvent<{ url: string }>) => {
@@ -308,6 +445,54 @@ export default function LandingPage() {
               </motion.div>
             </motion.div>
           </div>
+
+          {/* Statistics Section */}
+          <motion.div 
+            ref={statsRef}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-24"
+          >
+            <div className="flex flex-col md:flex-row justify-center items-center gap-16 md:gap-24">
+              <div className="text-center">
+                <motion.div 
+                  className="font-mono text-2xl md:text-3xl text-[#9400D3] mb-1"
+                >
+                  {new Intl.NumberFormat().format(companiesCount)}
+                </motion.div>
+                <div className="text-gray-500 text-sm">
+                  Companies Analyzed
+                </div>
+              </div>
+              <div className="text-center">
+                <motion.div 
+                  className="font-mono text-2xl md:text-3xl text-[#9400D3] mb-1"
+                  animate={{ scale: [1, 1.02, 1] }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  key={responsesCount}
+                >
+                  {new Intl.NumberFormat().format(responsesCount)}
+                </motion.div>
+                <div className="text-gray-500 text-sm">
+                  Responses Collected
+                </div>
+              </div>
+              <div className="text-center">
+                <motion.div 
+                  className="font-mono text-2xl md:text-3xl text-[#9400D3] mb-1"
+                  animate={{ scale: [1, 1.02, 1] }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  key={citationsCount}
+                >
+                  {new Intl.NumberFormat().format(citationsCount)}
+                </motion.div>
+                <div className="text-gray-500 text-sm">
+                  Citations Analyzed
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Carousel Section */}
           <div className="mb-8">

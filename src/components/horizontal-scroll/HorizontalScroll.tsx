@@ -27,29 +27,35 @@ export function HorizontalScroll({ children }: { children: React.ReactNode }) {
       ScrollTrigger.matchMedia({
         // Desktop
         "(min-width: 1024px)": () => {
-          gsap.to(horizontal, {
-            x: () => -(horizontal.scrollWidth - window.innerWidth),
-            ease: "none",
+          const tl = gsap.timeline({
             scrollTrigger: {
               trigger: container,
               start: "top top",
               end: "+=200%",
               pin: true,
-              scrub: 1,
+              scrub: 0.1,
+              anticipatePin: 1,
+              fastScrollEnd: true,
+              preventOverlaps: true,
               invalidateOnRefresh: true
             }
+          });
+
+          // Use timeline for smoother animation
+          tl.to(horizontal, {
+            x: () => -(horizontal.scrollWidth - window.innerWidth),
+            ease: "none"
           });
         },
         // Mobile
         "(max-width: 1023px)": () => {
-          // Reset any transforms
           gsap.set(horizontal, { x: 0, clearProps: "all" });
         }
       });
     });
 
     return () => {
-      ctx.revert(); // Clean up all animations and scroll triggers
+      ctx.revert();
     };
   }, []);
 
@@ -60,7 +66,11 @@ export function HorizontalScroll({ children }: { children: React.ReactNode }) {
     >
       <div
         ref={horizontalRef}
-        className="flex flex-col lg:flex-row absolute top-0 left-0 h-auto lg:h-screen"
+        className="flex flex-col lg:flex-row absolute top-0 left-0 h-auto lg:h-screen will-change-transform"
+        style={{ 
+          transform: 'translate3d(0, 0, 0)',
+          backfaceVisibility: 'hidden'
+        }}
       >
         {children}
       </div>

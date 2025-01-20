@@ -6,25 +6,25 @@ import { Link as LinkIcon, FileText, Globe, Book } from 'lucide-react';
 
 const citations = [
   {
-    type: "Website Links",
-    description: "Direct references to your website pages",
-    icon: <LinkIcon className="w-6 h-6 text-purple-600" />
+    type: "Citation Analysis",
+    description: "Identify what drives AI recommendations",
+    icon: <FileText className="w-5 h-5 text-purple-600" />,
   },
   {
-    type: "Documentation",
-    description: "Technical docs and guides",
-    icon: <FileText className="w-6 h-6 text-purple-600" />
+    type: "Content Strategy",
+    description: "Shape the narrative that matters",
+    icon: <Globe className="w-5 h-5 text-purple-600" />,
   },
   {
-    type: "Online Reviews",
-    description: "User feedback and testimonials",
-    icon: <Globe className="w-6 h-6 text-purple-600" />
+    type: "Impact Patterns",
+    description: "Understand citation influence",
+    icon: <LinkIcon className="w-5 h-5 text-purple-600" />,
   },
   {
-    type: "Content Marketing",
-    description: "Blogs, articles, and resources",
-    icon: <Book className="w-6 h-6 text-purple-600" />
-  }
+    type: "Authority Building",
+    description: "Establish lasting market presence",
+    icon: <Book className="w-5 h-5 text-purple-600" />,
+  },
 ];
 
 export function MobileSection4() {
@@ -44,64 +44,47 @@ export function MobileSection4() {
         {/* Text Content */}
         <div className="space-y-6 text-center mb-12">
           <h2 className="text-4xl font-light text-gray-900">
-            Uncover Your
-            <span className="block mt-2 font-normal bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text">
-              Citation Sources
+            Build Your
+            <span className="block mt-2 mb-1 pb-3 font-normal bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text">
+              Playbook
             </span>
           </h2>
           
           <p className="text-lg text-gray-600">
-            Discover and analyze the sources AI engines use when discussing your product.
+            Decode the patterns behind influential citations to craft your perfect market presence.
           </p>
         </div>
 
-        {/* Citations - Grid Layout */}
-        <div className="grid grid-cols-1 gap-3">
-          {citations.map((citation, index) => (
-            <motion.div
-              key={citation.type}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+        {/* Video Container */}
+        <div className="w-full aspect-video bg-white/90 rounded-xl shadow-2xl overflow-hidden border border-purple-100/20 mb-16">
+          <div className="relative w-full h-full">
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="none"
             >
-              <motion.div 
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-purple-100/20"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="p-1.5 bg-purple-50 rounded-lg shrink-0">
-                    <div className="w-5 h-5">{citation.icon}</div>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900 text-base">{citation.type}</h3>
-                    <p className="text-sm text-gray-500 mt-0.5">{citation.description}</p>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          ))}
+              <source src="/videos/section4.webm" type="video/webm" />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
+          </div>
         </div>
 
-        {/* Product Screenshot */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="mt-12 relative"
-        >
-          <div className="relative w-full bg-white rounded-xl shadow-2xl overflow-hidden">
-            <div className="relative w-full p-4">
-              <img
-                src="/images/product(2).svg"
-                alt="Citation analysis dashboard"
-                className="w-full rounded-lg"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
+        <div className="space-y-4">
+          {citations.map((citation, index) => (
+            <div key={citation.type} className="flex items-start gap-4 p-3 rounded-lg hover:bg-white/50 transition-colors duration-200">
+              <div className="mt-1">
+                {citation.icon}
+              </div>
+              <div>
+                <h3 className="font-medium text-gray-900">{citation.type}</h3>
+                <p className="text-sm text-gray-500">{citation.description}</p>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          ))}
+        </div>
       </div>
     </div>
   );

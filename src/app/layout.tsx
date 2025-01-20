@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,6 +35,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="192x192" href="/logo(192x192).png" />
         <link rel="icon" type="image/png" sizes="512x512" href="/logo(512x512).png" />
         <link rel="apple-touch-icon" href="/logo(192x192).png" />
+        {process.env.NODE_ENV === 'production' && <GoogleAnalytics />}
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}>
         <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">

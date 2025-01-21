@@ -263,7 +263,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-center space-y-4 w-full -mt-32"
+              className="text-center space-y-4 w-full -mt-0 md:-mt-32"
             >
               <motion.div 
                 className="space-y-6"
@@ -452,42 +452,42 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-24"
+            className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 md:mb-24"
           >
-            <div className="flex flex-col md:flex-row justify-center items-center gap-16 md:gap-24">
+            <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-24">
               <div className="text-center">
                 <motion.div 
-                  className="font-mono text-2xl md:text-3xl text-[#9400D3] mb-1"
+                  className="font-mono text-xl md:text-3xl text-[#9400D3] mb-1"
                 >
                   {new Intl.NumberFormat().format(companiesCount)}
                 </motion.div>
-                <div className="text-gray-500 text-sm">
+                <div className="text-gray-500 text-xs md:text-sm">
                   Companies Analyzed
                 </div>
               </div>
               <div className="text-center">
                 <motion.div 
-                  className="font-mono text-2xl md:text-3xl text-[#9400D3] mb-1"
+                  className="font-mono text-xl md:text-3xl text-[#9400D3] mb-1"
                   animate={{ scale: [1, 1.02, 1] }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   key={responsesCount}
                 >
                   {new Intl.NumberFormat().format(responsesCount)}
                 </motion.div>
-                <div className="text-gray-500 text-sm">
+                <div className="text-gray-500 text-xs md:text-sm">
                   Responses Collected
                 </div>
               </div>
               <div className="text-center">
                 <motion.div 
-                  className="font-mono text-2xl md:text-3xl text-[#9400D3] mb-1"
+                  className="font-mono text-xl md:text-3xl text-[#9400D3] mb-1"
                   animate={{ scale: [1, 1.02, 1] }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   key={citationsCount}
                 >
                   {new Intl.NumberFormat().format(citationsCount)}
                 </motion.div>
-                <div className="text-gray-500 text-sm">
+                <div className="text-gray-500 text-xs md:text-sm">
                   Citations Analyzed
                 </div>
               </div>

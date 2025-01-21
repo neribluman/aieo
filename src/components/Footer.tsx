@@ -35,6 +35,13 @@ export function Footer() {
             >
               About Us
             </Link>
+            <span className="hidden md:inline text-purple-200/20">•</span>
+            <Link 
+              href="/blog" 
+              className="text-purple-200/40 hover:text-purple-200/60 transition-colors duration-200"
+            >
+              Blog
+            </Link>
           </nav>
         </div>
       </div>

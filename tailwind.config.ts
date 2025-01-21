@@ -10,6 +10,41 @@ const config: Config = {
   	transparent: 'transparent',
   	current: 'currentColor',
   	extend: {
+  		typography: {
+  			DEFAULT: {
+  				css: {
+  					color: '#E9D5FF', // text-purple-200
+  					a: {
+  						color: '#A855F7', // text-purple-500
+  						'&:hover': {
+  							color: '#C084FC', // text-purple-400
+  						},
+  					},
+  					h1: {
+  						color: '#E9D5FF', // text-purple-200
+  					},
+  					h2: {
+  						color: '#E9D5FF', // text-purple-200
+  					},
+  					h3: {
+  						color: '#E9D5FF', // text-purple-200
+  					},
+  					h4: {
+  						color: '#E9D5FF', // text-purple-200
+  					},
+  					strong: {
+  						color: '#E9D5FF', // text-purple-200
+  					},
+  					code: {
+  						color: '#E9D5FF', // text-purple-200
+  					},
+  					blockquote: {
+  						color: '#E9D5FF', // text-purple-200
+  						borderLeftColor: '#A855F7', // border-purple-500
+  					},
+  				},
+  			},
+  		},
   		colors: {
   			tremor: {
   				brand: {
@@ -173,7 +208,11 @@ const config: Config = {
         /^(fill-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
     },
   ],
-  plugins: [require("@headlessui/tailwindcss"), require("tailwindcss-animate")],
+  plugins: [
+    require("@headlessui/tailwindcss"),
+    require("tailwindcss-animate"),
+    require('@tailwindcss/typography'),
+  ],
 }
 
 export default config

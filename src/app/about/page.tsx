@@ -37,14 +37,14 @@ export default function AboutPage() {
             className="max-w-3xl mx-auto"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-gray-900">
-              Navigating the
+              Pioneering the
               <span className="block mt-2 font-normal bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text leading-normal">
-                AI Search Revolution
+                Future of AI Search
               </span>
             </h1>
             <p className="mt-6 text-xl text-gray-500 max-w-2xl mx-auto">
-              At x<span className="italic">f</span>unnel, we're on a mission to help businesses thrive in a world where AI is rewriting the rules of online discovery
-          </p>
+              As AI reshapes how customers discover and evaluate products, x<span className="italic">f</span>unnel brings transparency to the black box of AI search - helping businesses understand and optimize how they appear in AI-generated recommendations across the entire buying journey
+            </p>
           </motion.div>
         </div>
       </div>
@@ -75,15 +75,120 @@ export default function AboutPage() {
             </h2>
             <div className="prose prose-lg prose-invert">
               <p className="text-gray-200">
-                Traditional search engines used to rely on keywords and link rankings, but modern AI-powered engines—like ChatGPT, Perplexity, Claude, and Gemini - engage in real conversations, providing context-driven answers that reshape how people seek information.
+                Unlike traditional SEO, modern AI-powered platforms like ChatGPT, Gemini, and Perplexity operate as "black boxes" - there's no direct analytics to see AI search traffic or understand how your content is ranked. And there is Definitely no way to know how to improve it.
               </p>
               <p className="text-gray-200">
-                This evolution has created a serious challenge for companies everywhere. Conventional SEO tactics simply aren't enough anymore, and AI engines function largely as "black boxes," leaving businesses in the dark about how their content is interpreted or ranked.
+                Many businesses either don't show up at all in AI-generated answers about relevant questions, or are mentioned incorrectly with missing key information about their solutions and benefits. As AI reshapes the entire buying journey, from problem awareness to purchase decisions, the need for AI-optimized presence has never been more critical.
               </p>
             </div>
           </motion.div>
+        </div>
+      </div>
+
+      {/* Hidden Customer Journey Section */}
+      <div className="relative z-10 bg-[#1A1A2F] text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+          {/* Floating particles background */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute w-full h-full">
+              {/* We'll add particles.js or similar for background effect */}
+              <div className="particle-container" />
             </div>
           </div>
+
+          {/* Section Header */}
+          <div className="relative">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-24"
+            >
+              <h2 className="text-4xl md:text-5xl font-extralight tracking-tight text-white mb-6">
+                The Customer Journey is
+                <span className="block mt-2 mb-1 font-light leading-[1.2] bg-gradient-to-r from-purple-300 to-purple-100 text-transparent bg-clip-text">
+                  Disappearing into AI
+                </span>
+              </h2>
+              <p className="mt-6 text-xl text-purple-100/70 max-w-2xl mx-auto font-light">
+                Users are spending twice as long in AI platforms, having conversations you can't see or influence
+              </p>
+            </motion.div>
+
+            {/* Time Comparison */}
+            <div className="max-w-4xl mx-auto mb-32">
+              {/* Perplexity Stats */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="mb-16"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-2xl font-light text-purple-100">Perplexity AI</h3>
+                  <div className="font-mono text-4xl md:text-5xl text-purple-100">23:10</div>
+                </div>
+                <div className="relative h-2 bg-purple-950/30 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: '100%' }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    className="absolute h-full bg-gradient-to-r from-purple-400 to-purple-600 rounded-full"
+                  />
+                </div>
+                <div className="mt-2 text-sm text-purple-300/60 font-light">
+                  Average time spent per session
+                </div>
+              </motion.div>
+
+              {/* Google Stats */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-2xl font-light text-purple-100">Google</h3>
+                  <div className="font-mono text-4xl md:text-5xl text-purple-100">10:37</div>
+                </div>
+                <div className="relative h-2 bg-purple-950/30 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: '45%' }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    className="absolute h-full bg-gradient-to-r from-purple-400/50 to-purple-600/50 rounded-full"
+                  />
+                </div>
+                <div className="mt-2 text-sm text-purple-300/60 font-light">
+                  Average time spent per session
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Additional Context */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center max-w-3xl mx-auto"
+            >
+              <p className="text-xl text-purple-100/80 font-light leading-relaxed">
+                Your customers are spending more than twice as long in AI platforms, 
+                <span className="block mt-2 text-purple-200 font-normal">
+                  having deep conversations about your product that you can't see or influence
+                </span>
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Journey Timeline will go here */}
+          
+        </div>
+      </div>
 
       {/* Solution Section */}
       <div className="relative z-10">
@@ -107,7 +212,7 @@ export default function AboutPage() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Feature 1: Deep ICP Understanding */}
+            {/* Feature 1: Simulated AI Queries */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -119,15 +224,15 @@ export default function AboutPage() {
               <div className="relative bg-white/50 backdrop-blur-sm p-6 rounded-xl border border-purple-100 hover:border-purple-200 transition-all duration-300">
                 <div className="w-12 h-12 bg-purple-100 rounded-lg p-2.5 mb-4">
                   <UserGroupIcon className="w-full h-full text-purple-600" />
-        </div>
-                <h3 className="text-xl font-medium text-gray-900 mb-2">Deep ICP Understanding</h3>
+                </div>
+                <h3 className="text-xl font-medium text-gray-900 mb-2">Simulated AI Queries</h3>
                 <p className="text-gray-600">
-                  We don't just study keywords and algorithms—we delve into your Ideal Customer Profiles (ICPs) across various personas, industries, and geographies to craft AI-friendly queries tailored precisely to your audience.
+                  We replicate how real prospects use AI tools by generating thousands of relevant questions across different buyer personas, geographies, and use cases—mimicking genuine B2B buying journeys.
                 </p>
               </div>
             </motion.div>
 
-            {/* Feature 2: AI Engine Analysis */}
+            {/* Feature 2: Cross-Platform Analysis */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -140,14 +245,14 @@ export default function AboutPage() {
                 <div className="w-12 h-12 bg-purple-100 rounded-lg p-2.5 mb-4">
                   <ChartBarIcon className="w-full h-full text-purple-600" />
                 </div>
-                <h3 className="text-xl font-medium text-gray-900 mb-2">AI Engine Analysis</h3>
-              <p className="text-gray-600">
-                  x<span className="italic">f</span>unnel offers a 360-degree view across ChatGPT, Perplexity, Claude, and Gemini. You'll gain unprecedented insights into where your content appears, how it's ranked, and how users interact with it.
-              </p>
-            </div>
+                <h3 className="text-xl font-medium text-gray-900 mb-2">Cross-Platform Analysis</h3>
+                <p className="text-gray-600">
+                  Track and analyze responses across multiple AI platforms, measuring brand mentions, rankings, and competitor comparisons to identify patterns that lead to better visibility.
+                </p>
+              </div>
             </motion.div>
 
-            {/* Feature 3: Actionable Insights */}
+            {/* Feature 3: Strategic Recommendations */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -160,11 +265,11 @@ export default function AboutPage() {
                 <div className="w-12 h-12 bg-purple-100 rounded-lg p-2.5 mb-4">
                   <LightBulbIcon className="w-full h-full text-purple-600" />
                 </div>
-                <h3 className="text-xl font-medium text-gray-900 mb-2">Actionable Insights</h3>
-              <p className="text-gray-600">
-                  No more guesswork. We present clear, data-driven steps to improve your visibility across AI platforms, so you can focus on strategic changes that truly make a difference.
-              </p>
-            </div>
+                <h3 className="text-xl font-medium text-gray-900 mb-2">Strategic Recommendations</h3>
+                <p className="text-gray-600">
+                  Generate actionable, experiment-driven steps to improve AI visibility, from content creation and optimization to technical improvements and off-site citations.
+                </p>
+              </div>
             </motion.div>
 
             {/* Feature 4: Continuous Monitoring */}
@@ -181,14 +286,14 @@ export default function AboutPage() {
                   <ArrowPathIcon className="w-full h-full text-purple-600" />
                 </div>
                 <h3 className="text-xl font-medium text-gray-900 mb-2">Continuous Monitoring</h3>
-              <p className="text-gray-600">
-                  The AI landscape changes fast—x<span className="italic">f</span>unnel keeps you ahead of the game with real-time monitoring and weekly updates, ensuring you're always ready to adapt.
-              </p>
-            </div>
+                <p className="text-gray-600">
+                  Track results in real-time as you implement changes, with ongoing feedback and refinements to ensure your brand maintains visibility across the entire AI-driven buying journey.
+                </p>
+              </div>
             </motion.div>
           </div>
-          </div>
         </div>
+      </div>
 
       {/* Why It Matters Section */}
       <div className="relative z-10 overflow-hidden">
@@ -276,7 +381,7 @@ export default function AboutPage() {
                 <p className="text-2xl md:text-3xl font-light leading-relaxed text-white/90">
                   Businesses that fail to adapt risk being left behind, as AI engines increasingly influence purchasing decisions. 
                   <span className="block mt-4 text-purple-200">
-                    x<span className="italic">f</span>unnel empowers you to take control of your AI search presence, ensuring your brand is accurately represented and effectively positioned to drive conversions.
+                    x<span className="italic">f</span>unnel allows you to take control of your AI search presence, ensuring your brand is accurately represented and effectively positioned to drive conversions.
                   </span>
                 </p>
                 <p className="mt-8 text-xl md:text-2xl font-light leading-relaxed text-purple-100/90">
@@ -329,7 +434,7 @@ export default function AboutPage() {
                 </div>
                 <h3 className="text-xl font-medium text-gray-900 mb-2">Neri Bluman</h3>
                 <p className="text-gray-600 mb-4">
-                  With a background in driving growth through innovative tech, Neri guides our strategic vision and champions x<span className="italic">f</span>unnel's mission to empower businesses in the AI era.
+                  A seasoned entrepreneur who co-founded and led a startup in the U.S. for nearly seven years. With deep expertise in AI and go-to-market strategy, Neri has invested in and consulted with numerous ventures, bringing invaluable insights into how generative AI and LLMs are reshaping the future of business discovery.
                 </p>
                 <a 
                   href="https://www.linkedin.com/in/neribluman/"
@@ -364,20 +469,20 @@ export default function AboutPage() {
                 </div>
                 <h3 className="text-xl font-medium text-gray-900 mb-2">Beeri Amiel</h3>
                 <p className="text-gray-600 mb-4">
-                  Beeri leads the technical heart of x<span className="italic">f</span>unnel, ensuring our platform remains at the cutting edge of AI search analysis while delivering tangible results for our clients.
-          </p>
-            <a 
+                  A growth and go-to-market expert who has spent years advising B2B software companies on improving their buying journeys. Beeri's deep understanding of how AI-driven search shapes customer discovery led him to develop innovative solutions that bridge the gap between traditional SEO and AI-powered platforms.
+                </p>
+                <a 
                   href="https://www.linkedin.com/in/beeri-amiel/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-purple-600 hover:text-purple-700 transition-colors"
-            >
+                >
                   <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                   </svg>
                   LinkedIn Profile
-            </a>
-          </div>
+                </a>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -412,7 +517,7 @@ export default function AboutPage() {
             </div>
           </motion.div>
         </div>
-    </div>
+      </div>
     </main>
   );
 } 

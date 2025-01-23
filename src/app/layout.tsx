@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
+import { MobileNav } from "@/components/MobileNav";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -52,32 +53,44 @@ export default function RootLayout({
             </Link>
 
             <div className="flex items-center space-x-4">
-              <Button
-                variant="ghost"
-                className="text-sm font-medium text-gray-900 hover:bg-gray-100"
-                asChild
-              >
-                <Link href="/pricing">
-                  Pricing
-                </Link>
-              </Button>
-              <Button
-                variant="ghost"
-                className="text-sm font-medium text-gray-900 hover:bg-gray-100"
-                asChild
-              >
-                <Link href="/login">
-                  Log in
-                </Link>
-              </Button>
-              <Button
-                className="text-sm font-medium bg-[#2E0854] text-white hover:bg-[#2E0854]/90"
-                asChild
-              >
-                <Link href="/contact">
-                  Contact us
-                </Link>
-              </Button>
+              <div className="hidden md:flex items-center space-x-4">
+                <Button
+                  variant="ghost"
+                  className="text-sm font-medium text-gray-900 hover:bg-gray-100"
+                  asChild
+                >
+                  <Link href="/about">
+                    About
+                  </Link>
+                </Button>
+                <Button
+                  variant="ghost"
+                  className="text-sm font-medium text-gray-900 hover:bg-gray-100"
+                  asChild
+                >
+                  <Link href="/pricing">
+                    Pricing
+                  </Link>
+                </Button>
+                <Button
+                  variant="ghost"
+                  className="text-sm font-medium text-gray-900 hover:bg-gray-100"
+                  asChild
+                >
+                  <Link href="/login">
+                    Log in
+                  </Link>
+                </Button>
+                <Button
+                  className="text-sm font-medium bg-[#2E0854] text-white hover:bg-[#2E0854]/90"
+                  asChild
+                >
+                  <Link href="/contact">
+                    Contact us
+                  </Link>
+                </Button>
+              </div>
+              <MobileNav />
             </div>
           </div>
         </nav>

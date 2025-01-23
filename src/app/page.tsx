@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { SarcasticCarousel } from "./landing-page/components/SarcasticCarousel";
@@ -17,137 +17,10 @@ import { MobileSection2 } from "@/components/horizontal-scroll/mobile-sections/M
 import { MobileSection3 } from "@/components/horizontal-scroll/mobile-sections/MobileSection3";
 import { MobileSection4 } from "@/components/horizontal-scroll/mobile-sections/MobileSection4";
 import { MobileSection5 } from "@/components/horizontal-scroll/mobile-sections/MobileSection5";
-
-function useDelayedCounter(
-  end: number,
-  duration: number = 2000,
-  start: number = 0,
-  delay: number = 0
-) {
-  const [count, setCount] = useState(end);
-  const countRef = useRef(end);
-  const startTimeRef = useRef<number | null>(null);
-  const hasStarted = useRef(false);
-  const isReady = useRef(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      isReady.current = true;
-      if (!hasStarted.current) {
-        hasStarted.current = true;
-        requestAnimationFrame(animate);
-      }
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, [delay]);
-
-  const animate = (timestamp: number) => {
-    if (!isReady.current) return;
-    
-    if (!startTimeRef.current) {
-      startTimeRef.current = timestamp;
-      setCount(start);
-      countRef.current = start;
-    }
-    const progress = timestamp - startTimeRef.current;
-    const percentage = Math.min(progress / duration, 1);
-    
-    const currentCount = Math.floor(start + (end - start) * percentage);
-    
-    if (currentCount !== countRef.current) {
-      countRef.current = currentCount;
-      setCount(currentCount);
-    }
-
-    if (percentage < 1) {
-      requestAnimationFrame(animate);
-    }
-  };
-
-  return count;
-}
-
-function useDelayedCombinedCounter(
-  end: number,
-  initialDuration: number = 2000,
-  incrementInterval: number = 1000,
-  minIncrement: number = 1,
-  maxIncrement: number = 5,
-  delay: number = 0
-) {
-  const [count, setCount] = useState(end);
-  const countRef = useRef(end);
-  const startTimeRef = useRef<number | null>(null);
-  const hasReachedInitial = useRef(false);
-  const hasStarted = useRef(false);
-  const isReady = useRef(false);
-  const prevTimeRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      isReady.current = true;
-      if (!hasStarted.current) {
-        hasStarted.current = true;
-        requestAnimationFrame(animate);
-      }
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, [delay]);
-
-  const animate = (timestamp: number) => {
-    if (!isReady.current) return;
-    
-    if (!startTimeRef.current) {
-      startTimeRef.current = timestamp;
-      setCount(0);
-      countRef.current = 0;
-    }
-    const progress = timestamp - startTimeRef.current;
-    const percentage = Math.min(progress / initialDuration, 1);
-    
-    const currentCount = Math.floor(end * percentage);
-    
-    if (currentCount !== countRef.current) {
-      countRef.current = currentCount;
-      setCount(currentCount);
-    }
-
-    if (percentage < 1) {
-      requestAnimationFrame(animate);
-    } else {
-      hasReachedInitial.current = true;
-      prevTimeRef.current = performance.now();
-    }
-  };
-
-  useEffect(() => {
-    if (!hasReachedInitial.current || !isReady.current) return;
-
-    const animateIncrement = (timestamp: number) => {
-      if (!prevTimeRef.current) {
-        prevTimeRef.current = timestamp;
-        return requestAnimationFrame(animateIncrement);
-      }
-
-      const deltaTime = timestamp - prevTimeRef.current;
-      
-      if (deltaTime >= incrementInterval) {
-        const randomIncrement = Math.floor(Math.random() * (maxIncrement - minIncrement + 1)) + minIncrement;
-        setCount(prev => prev + randomIncrement);
-        prevTimeRef.current = timestamp;
-      }
-
-      requestAnimationFrame(animateIncrement);
-    };
-
-    const animationFrame = requestAnimationFrame(animateIncrement);
-    return () => cancelAnimationFrame(animationFrame);
-  }, [incrementInterval, minIncrement, maxIncrement, hasReachedInitial.current]);
-
-  return count;
-}
+import Image from 'next/image';
+import WaveReveal from "@/components/animata/text/wave-reveal";
+import GibberishText from "@/components/animata/text/gibberish-text";
+import Counter from "@/components/animata/text/counter";
 
 export default function LandingPage() {
   const [url, setUrl] = useState('');
@@ -161,9 +34,26 @@ export default function LandingPage() {
   const statsRef = useRef(null);
   const isStatsInView = useInView(statsRef, { once: true });
   
-  const companiesCount = useDelayedCounter(266, 3500, 0, isStatsInView ? 0 : 999999);
-  const responsesCount = useDelayedCombinedCounter(500498, 3000, 3000, 1, 4, isStatsInView ? 0 : 999999);
-  const citationsCount = useDelayedCombinedCounter(2104028, 2500, 1600, 1, 6, isStatsInView ? 0 : 999999);
+  const platforms = [
+    "Gemini",
+    "AI Overviews",
+    "ChatGPT",
+    "Claude",
+    "Perplexity",
+    "Meta AI",
+    "Copilot"
+  ];
+
+  const [currentPlatform, setCurrentPlatform] = useState(0);
+  const [currentAnimation, setCurrentAnimation] = useState<'wave' | 'gibberish'>('wave');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPlatform((prev) => (prev + 1) % platforms.length);
+      setCurrentAnimation((prev) => prev === 'wave' ? 'gibberish' : 'wave');
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [platforms.length]);
 
   useEffect(() => {
     const handleShowEmailModal = (event: CustomEvent<{ url: string }>) => {
@@ -233,216 +123,195 @@ export default function LandingPage() {
 
   return (
     <main className="relative">
-      {/* First Section - Keep existing hero section */}
-      <div className="h-screen relative overflow-hidden bg-gradient-to-b from-white via-purple-50 to-white">
-        {/* Grid background */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
-        
-        {/* Floating gradient orbs - Only show on desktop */}
-        <div className="absolute inset-0 overflow-hidden hidden md:block">
-          <motion.div
-            className="absolute w-[600px] h-[600px] rounded-full bg-gradient-radial from-purple-400/10 to-transparent blur-3xl"
+      {/* First Section - Hero section */}
+      <div className="h-screen relative overflow-hidden bg-gradient-to-br from-white via-purple-50/40 to-white">
+        {/* Modern grid background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-br from-purple-100/40 via-transparent to-purple-50/40"
             animate={{
-              x: ['-10%', '10%'],
-              y: ['-10%', '10%'],
+              opacity: [0.4, 0.6, 0.4],
+              background: [
+                "linear-gradient(to bottom right, rgba(147,51,234,0.1), transparent, rgba(168,85,247,0.05))",
+                "linear-gradient(to bottom right, rgba(168,85,247,0.1), transparent, rgba(147,51,234,0.05))"
+              ]
             }}
             transition={{
-              duration: 20,
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut"
+            }}
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_-30%,#8b5cf620,transparent)]" />
+        </div>
+        
+        {/* Floating gradient orbs - Enhanced for modern look */}
+        <div className="absolute inset-0 overflow-hidden hidden md:block">
+          <motion.div
+            className="absolute w-[800px] h-[800px] rounded-full bg-gradient-radial from-purple-400/10 via-purple-400/5 to-transparent blur-3xl"
+            animate={{
+              x: ['-5%', '5%'],
+              y: ['-5%', '5%'],
+              scale: [0.9, 1.1],
+            }}
+            transition={{
+              duration: 8,
               repeat: Infinity,
               repeatType: 'reverse',
               ease: 'easeInOut',
             }}
-            style={{ top: '20%', left: '60%' }}
+            style={{ top: '10%', left: '60%' }}
+          />
+          <motion.div
+            className="absolute w-[600px] h-[600px] rounded-full bg-gradient-radial from-violet-500/10 via-violet-500/5 to-transparent blur-3xl"
+            animate={{
+              x: ['5%', '-5%'],
+              y: ['5%', '-5%'],
+              scale: [1.1, 0.9],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              repeatType: 'reverse',
+              ease: 'easeInOut',
+            }}
+            style={{ bottom: '10%', right: '60%' }}
           />
         </div>
 
         <div className="relative z-10 h-screen flex flex-col">
-          {/* Hero Section */}
-          <div className="flex-1 flex items-center justify-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-center space-y-4 w-full -mt-0 md:-mt-32"
-            >
+          {/* Hero Section - Main Content */}
+          <div className="flex-1 flex items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <motion.div 
-                className="space-y-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7 }}
+                className="space-y-6 text-left md:col-span-2"
               >
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-geist-sans font-light tracking-tight text-gray-900 leading-[1.1]">
-                  Improve conversion on
-                  {/* Desktop version with full animations */}
-                  <motion.span 
-                    className="hidden md:block mt-2 mb-2 font-normal bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text leading-[1.1] py-1 relative"
-                  >
-                    <motion.span
-                      className="inline-block relative"
-                      animate={{
-                        y: [0, -4, 0],
-                        scale: [1, 1.1, 1],
-                      }}
-                      transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        repeatDelay: 3,
-                        ease: "easeInOut"
-                      }}
-                    >
-                      <span className="relative">
-                        {/* Main text */}
-                        <span className="bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text">
-                          AI Search Engines
-                        </span>
-                        
-                        {/* Digital processing effect */}
-                        <motion.span
-                          className="absolute inset-0 bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text mix-blend-screen"
-                          animate={{
-                            x: [0, -4, 0],
-                            opacity: [0, 0.5, 0],
-                          }}
-                          transition={{
-                            duration: 0.3,
-                            repeat: Infinity,
-                            repeatDelay: 4,
-                            ease: "anticipate",
-                          }}
-                        >
-                          AI Search Engines
-                        </motion.span>
-                        <motion.span
-                          className="absolute inset-0 bg-gradient-to-r from-[#9400D3] to-[#2E0854] text-transparent bg-clip-text mix-blend-screen"
-                          animate={{
-                            x: [0, 4, 0],
-                            opacity: [0, 0.5, 0],
-                          }}
-                          transition={{
-                            duration: 0.3,
-                            repeat: Infinity,
-                            repeatDelay: 4,
-                            ease: "anticipate",
-                            delay: 0.15,
-                          }}
-                        >
-                          AI Search Engines
-                        </motion.span>
-
-                        {/* Scan line effect */}
-                        <motion.span
-                          className="absolute inset-0 w-full bg-gradient-to-b from-transparent via-purple-500/10 to-transparent"
-                          style={{ height: '4px' }}
-                          animate={{
-                            y: [-20, 40],
-                            opacity: [0, 1, 0],
-                          }}
-                          transition={{
-                            duration: 1.5,
-                            repeat: Infinity,
-                            repeatDelay: 3,
-                            ease: "linear",
-                          }}
-                        />
-
-                        {/* Highlight flash */}
-                        <motion.span
-                          className="absolute inset-0 bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text"
-                          animate={{
-                            opacity: [0, 0.3, 0],
-                            scale: [0.8, 1.1, 1],
-                          }}
-                          transition={{
-                            duration: 0.5,
-                            repeat: Infinity,
-                            repeatDelay: 4,
-                            ease: "easeOut",
-                            delay: 0.2,
-                          }}
-                        >
-                          AI Search Engines
-                        </motion.span>
-                      </span>
-                    </motion.span>
-                  </motion.span>
-
-                  {/* Simplified mobile version */}
-                  <motion.span 
-                    className="block md:hidden mt-2 mb-2 font-normal bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text leading-[1.1] py-1"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    AI Search Engines
-                  </motion.span>
-                </h1>
-                
-                <motion.p 
-                  className="text-xl md:text-2xl text-gray-500 font-light mt-2"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  Before your competitors do
-                </motion.p>
-
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-full max-w-2xl mx-auto group mt-8"
-                >
-                  <div className="relative">
-                    {/* Desktop hover effect */}
+                <div className="space-y-4 md:space-y-6">
+                  <div className="flex flex-col items-start">
                     <motion.div 
-                      className="absolute -inset-1 bg-gradient-to-r from-[#2E0854] to-[#9400D3] rounded-2xl opacity-0 
-                                group-hover:opacity-5 blur-xl transition-all duration-700 hidden md:block"
-                      animate={{
-                        scale: isInputFocused ? 1.02 : 1,
-                        opacity: isInputFocused ? 0.1 : 0,
-                      }}
+                      className="text-[3.5rem] md:text-[8rem] font-light tracking-tight text-gray-900 leading-[0.9]"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.7 }}
-                    />
-                    
-                    <div className="relative flex items-center">
-                      <Input
-                        placeholder={placeholder}
-                        className="w-full px-8 py-8 text-base sm:text-xl bg-white/50 border-gray-200 rounded-xl
-                                 focus:ring-2 focus:ring-[#2E0854]/20 transition-all duration-300
-                                 hover:bg-white/80 backdrop-blur-sm md:backdrop-blur-sm"
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
-                        onFocus={() => setIsInputFocused(true)}
-                        onBlur={() => setIsInputFocused(false)}
-                      />
-                      <button
-                        onClick={handleReveal}
-                        disabled={isAnalyzing}
-                        className="absolute right-3 flex items-center justify-center px-6 py-3 
-                                 bg-gradient-to-r from-[#2E0854] to-[#9400D3] rounded-lg text-white
-                                 hover:from-[#3A0A6B] hover:to-[#A020F0] transition-all duration-300
-                                 shadow-lg shadow-[#2E0854]/20 hover:shadow-[#2E0854]/30
-                                 disabled:opacity-50 disabled:cursor-not-allowed md:motion-safe:hover:scale-102"
-                      >
-                        {isAnalyzing ? (
-                          <>
-                            <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                            <span>Analyzing</span>
-                          </>
-                        ) : (
-                          <>
-                            <span className="mr-2 hidden md:inline">Try for Free</span>
-                            <ArrowRight className="h-4 w-4" />
-                          </>
-                        )}
-                      </button>
-                    </div>
-                    <p className="text-sm text-gray-500 mt-2 text-center">
-                      Get your first AI search engine analysis completely free
-                    </p>
+                    >
+                      IMPROVE
+                    </motion.div>
+                    <motion.div 
+                      className="text-[3.5rem] md:text-[8rem] font-light tracking-tight text-gray-900 leading-[0.9] relative"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.7, delay: 0.1 }}
+                    >
+                      CONVERSION
+                    </motion.div>
                   </div>
-                </motion.div>
+                  
+                  <div className="flex flex-col space-y-2">
+                    <motion.span 
+                      className="text-[1.2rem] md:text-[1.5rem] text-gray-400/80 tracking-widest uppercase pl-1"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                    >
+                      on
+                    </motion.span>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentPlatform}
+                        className="relative flex items-center"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.5 }}
+                        style={{
+                          minWidth: '600px',
+                          minHeight: '120px'
+                        }}
+                      >
+                        <div className="absolute inset-0 flex items-center">
+                          {currentAnimation === 'wave' ? (
+                            <WaveReveal
+                              text={platforms[currentPlatform]}
+                              direction="up"
+                              mode="letter"
+                              duration="600ms"
+                              delay={0}
+                              blur={true}
+                              className="!justify-start !p-0 !text-[3.5rem] md:!text-[6rem] !font-bold tracking-tight"
+                              letterClassName="text-transparent bg-clip-text bg-gradient-to-br from-purple-500 via-purple-400 to-purple-600 [text-shadow:0_4px_8px_rgba(168,85,247,0.2)] relative hover:scale-110 transition-transform duration-200"
+                            />
+                          ) : (
+                            <GibberishText
+                              text={platforms[currentPlatform]}
+                              className="text-[3.5rem] md:text-[6rem] font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-purple-500 via-purple-400 to-purple-600 [text-shadow:0_4px_8px_rgba(168,85,247,0.2)] relative hover:scale-110 transition-transform duration-200"
+                            />
+                          )}
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                </div>
               </motion.div>
+            </div>
+          </div>
+
+          {/* CTA Section */}
+          <div className="w-full max-w-xl mx-auto px-4 mb-16">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="relative group"
+            >
+              <div className="relative">
+                <motion.div 
+                  className="absolute -inset-0.5 bg-gradient-to-r from-[#2E0854] to-[#9400D3] rounded-2xl opacity-0 
+                            group-hover:opacity-10 blur-xl transition-all duration-500"
+                  animate={{
+                    scale: isInputFocused ? 1.02 : 1,
+                    opacity: isInputFocused ? 0.15 : 0,
+                  }}
+                />
+                
+                <div className="relative flex items-center">
+                  <Input
+                    placeholder={placeholder}
+                    className="w-full pl-6 pr-24 py-7 text-base sm:text-lg bg-white/80 border-gray-200/50 rounded-xl
+                             focus:ring-2 focus:ring-[#2E0854]/20 transition-all duration-300
+                             hover:bg-white/90 backdrop-blur-xl shadow-xl shadow-purple-500/5"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    onFocus={() => setIsInputFocused(true)}
+                    onBlur={() => setIsInputFocused(false)}
+                  />
+                  <button
+                    onClick={handleReveal}
+                    disabled={isAnalyzing}
+                    className="absolute right-2 flex items-center justify-center px-5 py-2.5
+                             bg-gradient-to-r from-[#2E0854] to-[#9400D3] rounded-lg text-white
+                             hover:from-[#3A0A6B] hover:to-[#A020F0] transition-all duration-300
+                             shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30
+                             disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isAnalyzing ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                        <span>Analyzing</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="mr-2 hidden md:inline">Try for Free</span>
+                        <ArrowRight className="h-4 w-4" />
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
             </motion.div>
           </div>
 
@@ -456,49 +325,54 @@ export default function LandingPage() {
           >
             <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-24">
               <div className="text-center">
-                <motion.div 
+                <Counter
+                  targetValue={266}
                   className="font-mono text-xl md:text-3xl text-[#9400D3] mb-1"
-                >
-                  {new Intl.NumberFormat().format(companiesCount)}
-                </motion.div>
+                  delay={isStatsInView ? 0 : 999999}
+                />
                 <div className="text-gray-500 text-xs md:text-sm">
                   Companies Analyzed
                 </div>
               </div>
               <div className="text-center">
-                <motion.div 
+                <Counter
+                  targetValue={500498}
                   className="font-mono text-xl md:text-3xl text-[#9400D3] mb-1"
-                  animate={{ scale: [1, 1.02, 1] }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  key={responsesCount}
-                >
-                  {new Intl.NumberFormat().format(responsesCount)}
-                </motion.div>
+                  delay={isStatsInView ? 200 : 999999}
+                />
                 <div className="text-gray-500 text-xs md:text-sm">
                   Responses Collected
                 </div>
               </div>
               <div className="text-center">
-                <motion.div 
+                <Counter
+                  targetValue={2104028}
                   className="font-mono text-xl md:text-3xl text-[#9400D3] mb-1"
-                  animate={{ scale: [1, 1.02, 1] }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  key={citationsCount}
-                >
-                  {new Intl.NumberFormat().format(citationsCount)}
-                </motion.div>
+                  delay={isStatsInView ? 400 : 999999}
+                />
                 <div className="text-gray-500 text-xs md:text-sm">
                   Citations Analyzed
                 </div>
               </div>
             </div>
           </motion.div>
-
-          {/* Carousel Section */}
-          <div className="mb-8">
-            <SarcasticCarousel />
-          </div>
         </div>
+      </div>
+
+      {/* Gradient Transition to Section2 */}
+      <div className="relative h-[40vh] -mt-[40vh]">
+        <motion.div 
+          className="absolute inset-0 pointer-events-none"
+          initial={{ opacity: 0 }}
+          whileInView={{ 
+            opacity: 1,
+            transition: { duration: 1, ease: "easeOut" }
+          }}
+          viewport={{ once: true, margin: "-20%" }}
+          style={{
+            background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(252, 246, 255, 0.4), rgba(250, 245, 255, 0.7), rgba(248, 244, 255, 0.9), rgba(245, 240, 255, 1))'
+          }}
+        />
       </div>
 
       {/* Horizontal Scroll Sections */}

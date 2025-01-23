@@ -44,14 +44,14 @@ export function MobileSection3() {
         {/* Text Content */}
         <div className="space-y-6 text-center mb-12">
           <h2 className="text-4xl font-light text-gray-900">
-            Master Your
+            Boost Your
             <span className="block mt-2 font-normal bg-gradient-to-r from-[#2E0854] to-[#9400D3] text-transparent bg-clip-text">
-              Market
+              AI Visibility
             </span>
           </h2>
           
           <p className="text-lg text-gray-600">
-            Uncover deep insights across regions, verticals, and personas throughout the buying journey.
+            Enhance your AI search visibility with deep insights across regions, verticals, and personas throughout the buying journey.
           </p>
         </div>
 

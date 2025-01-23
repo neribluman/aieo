@@ -79,9 +79,10 @@ export function PricingCards() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 * index }}
+            className="h-full"
           >
             <Card 
-              className={`flex flex-col relative bg-white/95 border ${
+              className={`flex flex-col h-full relative bg-white/95 border ${
                 plan.name === "Pro" ? "border-[#2E0854]/50 shadow-lg shadow-[#2E0854]/20" : "border-gray-200"
               }`}
             >
@@ -90,12 +91,12 @@ export function PricingCards() {
                   Most Popular
                 </div>
               )}
-              <CardHeader className="text-center">
+              <CardHeader className="text-center flex-none">
                 <div className="mx-auto mb-4 p-3 rounded-full bg-[#2E0854]/10">
                   {plan.icon}
                 </div>
                 <CardTitle className="text-xl">{plan.name}</CardTitle>
-                <CardDescription>{plan.description}</CardDescription>
+                <CardDescription className="min-h-[40px] flex items-center justify-center">{plan.description}</CardDescription>
                 <div className="mt-4">
                   <span className="text-4xl font-bold bg-gradient-to-r from-[#2E0854] via-[#4a0f8b] to-[#9400D3] bg-clip-text text-transparent">
                     {plan.price}
@@ -105,7 +106,7 @@ export function PricingCards() {
                   )}
                 </div>
               </CardHeader>
-              <CardContent className="flex-1">
+              <CardContent className="flex-1 flex flex-col">
                 <div className="space-y-4 mb-6">
                   {plan.highlights.map((highlight) => (
                     <div key={highlight.label} className="text-center">
@@ -118,18 +119,22 @@ export function PricingCards() {
                     </div>
                   ))}
                 </div>
-                <div className="border-t border-[#2E0854]/20 pt-4">
+                <div className="border-t border-[#2E0854]/20 pt-4 flex-1">
                   <ul className="space-y-2">
                     {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2 text-sm">
-                        <Check className="w-4 h-4 text-[#2E0854]" />
+                      <li key={feature} className={`flex items-center gap-2 text-sm ${
+                        feature.includes("Actionable AI conversion") 
+                          ? "bg-gradient-to-r from-[#2E0854]/10 to-transparent p-2 rounded-lg font-medium" 
+                          : ""
+                      }`}>
+                        <Check className="w-4 h-4 text-[#2E0854] flex-shrink-0" />
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </CardContent>
-              <CardFooter>
+              <CardFooter className="flex-none pt-4">
                 <Button 
                   className={`w-full group ${
                     plan.name === "Enterprise" 
@@ -295,20 +300,20 @@ const plans = [
   },
   {
     name: "Enterprise",
-    description: "Great for growing companies",
+    description: "Let's grow your AI conversion together",
     price: "Contact Us",
     period: false,
     icon: <Scale className="w-6 h-6 text-[#2E0854]" />,
     highlights: [
-      { value: "∞", label: "Questions" },
-      { value: "Custom", label: "Responses" },
-      { value: "5", label: "Answer Engines" },
+      { value: "1hr", label: "Weekly Meeting" },
+      { value: "AI", label: "Conversion Focus" },
+      { value: "∞", label: "Support" },
     ],
     features: [
       "Everything in Pro, plus:",
-      "Improve Ranking",
-      "Custom integrations",
-      "Dedicated support team",
+      "Weekly 1-hour strategy sessions with our AI experts",
+      "Actionable AI conversion recommendations",
+      "Implementation guidance and support",
     ],
     buttonText: "Contact Sales",
   },

@@ -30,6 +30,7 @@ export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const [placeholder, setPlaceholder] = useState('Enter your company or product name');
   const statsRef = useRef(null);
   const isStatsInView = useInView(statsRef, { once: true });
@@ -81,6 +82,16 @@ export default function LandingPage() {
     return () => window.removeEventListener('resize', updatePlaceholder);
   }, []);
 
+  useEffect(() => {
+    const checkIsDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    
+    checkIsDesktop();
+    window.addEventListener('resize', checkIsDesktop);
+    return () => window.removeEventListener('resize', checkIsDesktop);
+  }, []);
+
   const handleReveal = async () => {
     if (!url) return;
     
@@ -129,7 +140,7 @@ export default function LandingPage() {
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
           <motion.div 
-            className="absolute inset-0 bg-gradient-to-br from-purple-100/40 via-transparent to-purple-50/40"
+            className="absolute inset-0 bg-gradient-to-br from-purple-100/40 via-transparent to-purple-50/40 transform-gpu"
             animate={{
               opacity: [0.4, 0.6, 0.4],
               background: [
@@ -141,16 +152,17 @@ export default function LandingPage() {
               duration: 4,
               repeat: Infinity,
               repeatType: "reverse",
-              ease: "easeInOut"
+              ease: "easeInOut",
+              staggerChildren: 0.1
             }}
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_-30%,#8b5cf620,transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_-30%,#8b5cf620,transparent)] transform-gpu" />
         </div>
         
         {/* Floating gradient orbs - Enhanced for modern look */}
         <div className="absolute inset-0 overflow-hidden hidden md:block">
           <motion.div
-            className="absolute w-[800px] h-[800px] rounded-full bg-gradient-radial from-purple-400/10 via-purple-400/5 to-transparent blur-3xl"
+            className="absolute w-[800px] h-[800px] rounded-full bg-gradient-radial from-purple-400/10 via-purple-400/5 to-transparent blur-3xl transform-gpu"
             animate={{
               x: ['-5%', '5%'],
               y: ['-5%', '5%'],
@@ -161,6 +173,7 @@ export default function LandingPage() {
               repeat: Infinity,
               repeatType: 'reverse',
               ease: 'easeInOut',
+              staggerChildren: 0.1
             }}
             style={{ top: '10%', left: '60%' }}
           />
@@ -189,7 +202,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7 }}
-                className="space-y-6 text-left md:col-span-2"
+                className="space-y-6 text-left md:col-span-2 -mt-32 md:mt-0"
               >
                 <div className="space-y-4 md:space-y-6">
                   <div className="flex flex-col items-start">
@@ -211,7 +224,7 @@ export default function LandingPage() {
                     </motion.div>
                   </div>
                   
-                  <div className="flex flex-col space-y-2">
+                  <div className="flex flex-col space-y-2 md:space-y-4">
                     <motion.span 
                       className="text-[1.2rem] md:text-[1.5rem] text-gray-400/80 tracking-widest uppercase pl-1"
                       initial={{ opacity: 0, y: 20 }}
@@ -230,7 +243,7 @@ export default function LandingPage() {
                         transition={{ duration: 0.5 }}
                         style={{
                           minWidth: '600px',
-                          minHeight: '120px'
+                          minHeight: isDesktop ? '120px' : '80px'
                         }}
                       >
                         <div className="absolute inset-0 flex items-center">
@@ -242,13 +255,13 @@ export default function LandingPage() {
                               duration="600ms"
                               delay={0}
                               blur={true}
-                              className="!justify-start !p-0 !text-[3.5rem] md:!text-[6rem] !font-bold tracking-tight"
+                              className="!justify-start !p-0 !text-[2.8rem] md:!text-[6rem] !font-bold tracking-tight"
                               letterClassName="text-transparent bg-clip-text bg-gradient-to-br from-purple-500 via-purple-400 to-purple-600 [text-shadow:0_4px_8px_rgba(168,85,247,0.2)] relative hover:scale-110 transition-transform duration-200"
                             />
                           ) : (
                             <GibberishText
                               text={platforms[currentPlatform]}
-                              className="text-[3.5rem] md:text-[6rem] font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-purple-500 via-purple-400 to-purple-600 [text-shadow:0_4px_8px_rgba(168,85,247,0.2)] relative hover:scale-110 transition-transform duration-200"
+                              className="text-[2.8rem] md:text-[6rem] font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-purple-500 via-purple-400 to-purple-600 [text-shadow:0_4px_8px_rgba(168,85,247,0.2)] relative hover:scale-110 transition-transform duration-200"
                             />
                           )}
                         </div>
@@ -261,7 +274,7 @@ export default function LandingPage() {
           </div>
 
           {/* CTA Section */}
-          <div className="w-full max-w-xl mx-auto px-4 mb-16">
+          <div className="w-full max-w-xl mx-auto px-4 mb-8 md:mb-16">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -321,7 +334,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 md:mb-24"
+            className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 md:mb-24"
           >
             <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-24">
               <div className="text-center">

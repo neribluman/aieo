@@ -39,7 +39,7 @@ export default function RootLayout({
         {process.env.NODE_ENV === 'production' && <GoogleAnalytics />}
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}>
-        <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 transform-gpu will-change-transform">
           <div className="flex h-16 items-center justify-between px-4">
             <Link href="/" className="flex items-center">
               <Image

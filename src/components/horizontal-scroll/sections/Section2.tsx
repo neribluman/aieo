@@ -12,17 +12,17 @@ const metrics = [
   },
   { 
     label: "Brand Perception",
-    description: "How AI views your brand",
+    description: "Track your AI visibility",
     icon: <LineChart className="w-5 h-5 text-purple-600" />
   },
   { 
     label: "Market Position",
-    description: "Your standing in AI results",
+    description: "Your AI search visibility score",
     icon: <Target className="w-5 h-5 text-purple-600" />
   },
   { 
     label: "Competitive Edge",
-    description: "Lead in AI recommendations",
+    description: "Lead in AI search rankings",
     icon: <Trophy className="w-5 h-5 text-purple-600" />
   },
 ];

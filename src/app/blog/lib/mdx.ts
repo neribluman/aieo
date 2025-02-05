@@ -5,12 +5,39 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import type { MDXComponents } from 'mdx/types';
 import Image from 'next/image';
 import { BlogPost } from './types';
+import {
+  TableOfContents,
+  Quote,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  InfoBox,
+  Diagram,
+  TechStack,
+  CheckList,
+  CallToAction,
+} from '../components/mdx';
+import { Video } from '../components/Video';
 
 const postsDirectory = path.join(process.cwd(), 'content/blog');
 
-const components: MDXComponents = {
+const components = {
   img: Image as any,
-};
+  Image: Image as any,
+  Video: Video as any,
+  TableOfContents: TableOfContents as any,
+  Quote: Quote as any,
+  Card: Card as any,
+  CardHeader: CardHeader as any,
+  CardTitle: CardTitle as any,
+  CardContent: CardContent as any,
+  InfoBox: InfoBox as any,
+  Diagram: Diagram as any,
+  TechStack: TechStack as any,
+  CheckList: CheckList as any,
+  CallToAction: CallToAction as any,
+} satisfies MDXComponents;
 
 export async function getAllPosts(): Promise<BlogPost[]> {
   // Ensure the directory exists

@@ -2,9 +2,11 @@ import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
 if (!process.env.RESEND_API_KEY) {
+  console.error('❌ RESEND_API_KEY is missing from environment variables');
   throw new Error('RESEND_API_KEY is not defined in environment variables');
 }
 
+console.log('📧 Initializing Resend with API key:', process.env.RESEND_API_KEY.slice(0, 8) + '...');
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 type ContactFormData = {
@@ -25,13 +27,17 @@ type RequestData = ContactFormData | AnalysisRequestData;
 
 export async function POST(request: Request) {
   try {
+    console.log('🔄 Received new email request');
     const data = await request.json() as RequestData;
+    console.log('📝 Request data:', { ...data, email: data.email ? '***@***.***' : undefined });
 
     if (data.type === 'contact') {
-      // Handle contact form submission
+      console.log('📨 Processing contact form submission');
       const { name, email, subject, message } = data;
-      await resend.emails.send({
-        from: 'xfunnel.ai <onboarding@resend.dev>',
+      
+      console.log('📤 Sending email to hello@xfunnel.ai');
+      const adminEmailResult = await resend.emails.send({
+        from: 'xfunnel.ai <hello@xfunnel.ai>',
         to: ['hello@xfunnel.ai'],
         reply_to: email,
         subject: `Contact Form: ${subject}`,
@@ -43,10 +49,11 @@ export async function POST(request: Request) {
           <p>${message}</p>
         `,
       });
+      console.log('📬 Admin email result:', adminEmailResult);
 
-      // Send confirmation email to user
-      await resend.emails.send({
-        from: 'xfunnel.ai <onboarding@resend.dev>',
+      console.log('📤 Sending confirmation to user');
+      const userEmailResult = await resend.emails.send({
+        from: 'xfunnel.ai <hello@xfunnel.ai>',
         to: email,
         subject: 'We received your message',
         html: `
@@ -59,25 +66,62 @@ export async function POST(request: Request) {
           <p>Best regards,<br>The xfunnel.ai Team</p>
         `,
       });
+      console.log('📬 User confirmation email result:', userEmailResult);
     } else {
-      // Handle analysis request (existing functionality)
+      console.log('🔍 Processing analysis request');
       const { email, url } = data;
-      await resend.emails.send({
-        from: 'xfunnel.ai <onboarding@resend.dev>',
-        to: [email, 'hello@xfunnel.ai'],
-        subject: 'Your AI Visibility Analysis is in Progress',
+      
+      console.log('📤 Sending analysis confirmation email');
+      const result = await resend.emails.send({
+        from: 'xfunnel.ai <hello@xfunnel.ai>',
+        to: [email, 'hello@xfunnel.ai', 'neri@xfunnel.ai'],
+        subject: '🚀 Your AI Visibility Analysis is Starting!',
         html: `
-          <h1>Thanks for using xfunnel.ai!</h1>
-          <p>We're analyzing the AI presence of: ${url}</p>
-          <p>We'll process your request and send you the detailed analysis soon.</p>
-          <p>Best regards,<br>The xfunnel.ai Team</p>
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h1 style="color: #2E0854; margin-bottom: 24px;">🎯 Exciting News from xfunnel.ai! 🎉</h1>
+            
+            <p style="font-size: 16px; line-height: 1.5; margin-bottom: 16px;">
+              We're thrilled to start analyzing the AI presence of: <strong style="color: #9400D3;">${url}</strong> 🔍
+            </p>
+            
+            <div style="background: linear-gradient(to right, #2E0854, #9400D3); padding: 20px; border-radius: 10px; color: white; margin: 24px 0;">
+              <h2 style="margin-top: 0;">What's Happening Now:</h2>
+              <ul style="list-style-type: none; padding-left: 0;">
+                <li style="margin-bottom: 8px;">✨ Running deep analysis across major AI platforms</li>
+                <li style="margin-bottom: 8px;">📊 Gathering competitive intelligence</li>
+                <li style="margin-bottom: 8px;">🎯 Identifying optimization opportunities</li>
+                <li style="margin-bottom: 8px;">📈 Preparing actionable insights</li>
+              </ul>
+            </div>
+
+            <p style="font-size: 16px; line-height: 1.5; margin-bottom: 16px;">
+              <strong>⏰ Expected Delivery:</strong> Within the next 24 hours, you'll receive a comprehensive analysis of your AI presence.
+            </p>
+
+            <p style="font-size: 16px; line-height: 1.5; margin-bottom: 24px;">
+              Get ready to discover how AI perceives your brand and learn actionable steps to enhance your visibility! 🚀
+            </p>
+
+            <p style="font-size: 16px; line-height: 1.5; color: #666;">
+              Best regards,<br>
+              The xfunnel.ai Team 💜
+            </p>
+          </div>
         `,
       });
+      console.log('📬 Analysis email result:', result);
     }
 
+    console.log('✅ Email sent successfully');
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('❌ Error sending email:', error);
+    // Log additional error details if available
+    if (error instanceof Error) {
+      console.error('Error name:', error.name);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
     return NextResponse.json(
       { success: false, error: (error as Error).message }, 
       { status: 500 }

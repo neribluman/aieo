@@ -3,7 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import type { MDXComponents } from 'mdx/types';
-import Image from 'next/image';
+import { MdxImage } from '../components/mdx/MdxImage';
 import { BlogPost } from './types';
 import {
   TableOfContents,
@@ -23,8 +23,8 @@ import { Video } from '../components/Video';
 const postsDirectory = path.join(process.cwd(), 'content/blog');
 
 const components = {
-  img: Image as any,
-  Image: Image as any,
+  img: MdxImage as any,
+  Image: MdxImage as any,
   Video: Video as any,
   TableOfContents: TableOfContents as any,
   Quote: Quote as any,
@@ -98,7 +98,9 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       options: { 
         parseFrontmatter: true,
         mdxOptions: {
-          development: process.env.NODE_ENV === 'development'
+          development: process.env.NODE_ENV === 'development',
+          remarkPlugins: [],
+          rehypePlugins: [],
         }
       }
     });
@@ -115,6 +117,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
       readingTime: calculateReadingTime(content)
     } as BlogPost;
   } catch (error) {
+    console.error('Error in getPostBySlug:', error);
     return null;
   }
 }

@@ -75,19 +75,19 @@ export async function POST(request: Request) {
       const result = await resend.emails.send({
         from: 'xfunnel.ai <hello@xfunnel.ai>',
         to: [email, 'hello@xfunnel.ai', 'neri@xfunnel.ai'],
-        subject: '🚀 Your AI Visibility Analysis is Starting!',
+        subject: '🚀 Your AI Search Audit is Starting!',
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <h1 style="color: #2E0854; margin-bottom: 24px;">🎯 Exciting News from xfunnel.ai! 🎉</h1>
             
             <p style="font-size: 16px; line-height: 1.5; margin-bottom: 16px;">
-              We're thrilled to start analyzing the AI presence of: <strong style="color: #9400D3;">${url}</strong> 🔍
+              We're thrilled to start your AI Search Audit for: <strong style="color: #9400D3;">${url}</strong> 🔍
             </p>
             
             <div style="background: linear-gradient(to right, #2E0854, #9400D3); padding: 20px; border-radius: 10px; color: white; margin: 24px 0;">
               <h2 style="margin-top: 0;">What's Happening Now:</h2>
               <ul style="list-style-type: none; padding-left: 0;">
-                <li style="margin-bottom: 8px;">✨ Running deep analysis across major AI platforms</li>
+                <li style="margin-bottom: 8px;">✨ Running comprehensive AI Search Audit across major platforms</li>
                 <li style="margin-bottom: 8px;">📊 Gathering competitive intelligence</li>
                 <li style="margin-bottom: 8px;">🎯 Identifying optimization opportunities</li>
                 <li style="margin-bottom: 8px;">📈 Preparing actionable insights</li>
@@ -95,11 +95,11 @@ export async function POST(request: Request) {
             </div>
 
             <p style="font-size: 16px; line-height: 1.5; margin-bottom: 16px;">
-              <strong>⏰ Expected Delivery:</strong> Within the next 24 hours, you'll receive a comprehensive analysis of your AI presence.
+              <strong>⏰ Expected Delivery:</strong> Within the next 48 hours, you'll receive a comprehensive AI Search Audit report.
             </p>
 
             <p style="font-size: 16px; line-height: 1.5; margin-bottom: 24px;">
-              Get ready to discover how AI perceives your brand and learn actionable steps to enhance your visibility! 🚀
+              Get ready to discover how your brand appears in AI search results and learn actionable steps to enhance your visibility! 🚀
             </p>
 
             <p style="font-size: 16px; line-height: 1.5; color: #666;">

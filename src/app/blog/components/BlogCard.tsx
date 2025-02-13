@@ -28,16 +28,13 @@ export function BlogCard({
     >
       <Link href={`/blog/${slug}`}>
         <div className="relative h-48 w-full overflow-hidden">
-          {coverImage ? (
-            <Image
-              src={coverImage}
-              alt={title}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-200"
-            />
-          ) : (
-            <div className="w-full h-full bg-purple-900/20" />
-          )}
+          <Image
+            src={coverImage || '/logo(512x512).png'}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-200 group-hover:scale-105"
+          />
         </div>
         <div className="p-6">
           <div className="flex items-center text-xs text-purple-200/40 mb-3 space-x-4">

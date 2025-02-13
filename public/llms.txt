@@ -507,3 +507,27 @@ Perplexity AI has been making waves in the tech world for its "answer engine" ap
 - Key Investors: Jeff Bezos, Nvidia
 - Product Type: AI-powered answer engine
 - Main Features: Real-time data retrieval, conversational interface, multi-model approach
+
+# AI Search Engines and LLMs (2025)
+
+## Major AI Search Platforms
+- ChatGPT (OpenAI) - 3.8B monthly visits
+- Google Gemini (formerly Bard) - 268M monthly visits
+- Perplexity AI - 100M monthly visits
+- Claude (Anthropic) - 77M monthly visits
+- Microsoft Copilot/Bing Chat - 67M monthly visits
+- DeepSeek - 277M monthly visits (Chinese market)
+
+## Key LLM Technologies
+- GPT-4 (OpenAI) - Powers ChatGPT and Microsoft Copilot
+- LaMDA/PaLM (Google) - Foundation for Gemini
+- Claude (Anthropic) - Focused on helpful, honest, and harmless interactions
+- Bing Chat - GPT-4 integration with Bing's search index
+
+## Features
+- Natural language understanding
+- Retrieval-Augmented Generation (RAG)
+- Multi-modal capabilities (text, images, charts)
+- Conversational context retention
+- Direct answer synthesis
+- Source citation and verification

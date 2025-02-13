@@ -206,11 +206,11 @@ export function PricingCards() {
                     <>
                       <div className="space-y-4 text-gray-600">
                         <p>
-                          We'll analyze your AI presence by making hundreds of calls per response. 
-                          With 16 responses, this will take about an hour to complete thoroughly.
+                          We'll conduct your AI Search Audit by making hundreds of calls per response. 
+                          With 16 responses, this will take about two days to complete thoroughly.
                         </p>
                         <p className="text-sm">
-                          We'll send you a single email (no spam!) when your analysis is ready.
+                          We'll send you a single email (no spam!) when your audit is ready.
                         </p>
                       </div>
                       <form onSubmit={handleEmailSubmit} className="space-y-4">
@@ -247,7 +247,7 @@ export function PricingCards() {
                 >
                   <h2 className="text-2xl font-semibold text-gray-900">Thank you! ✨</h2>
                   <p className="text-gray-600">
-                    We'll send your analysis results in about an hour. Keep an eye on your inbox!
+                    We'll send your audit results in about 48 hours. Keep an eye on your inbox!
                   </p>
                 </motion.div>
               )}

@@ -427,7 +427,7 @@ export default function LandingPage() {
                 <>
                   <h2 className="text-2xl font-semibold text-gray-900">Almost there! 🚀</h2>
                   <p className="text-gray-600">
-                    We're analyzing your product's AI presence. Enter your email and we'll send you the detailed results once they're ready.
+                    We're preparing your AI Search Audit. Enter your email and we'll send you the detailed results once they're ready.
                   </p>
                   <form onSubmit={handleEmailSubmit} className="space-y-4">
                     <Input
@@ -461,7 +461,7 @@ export default function LandingPage() {
                 >
                   <h2 className="text-2xl font-semibold text-gray-900">Thank you! ✨</h2>
                   <p className="text-gray-600">
-                    We'll send your analysis results shortly. Keep an eye on your inbox!
+                    We'll send your AI Search Audit results in about 48 hours. Keep an eye on your inbox!
                   </p>
                 </motion.div>
               )}
